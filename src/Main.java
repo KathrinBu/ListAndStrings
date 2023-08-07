@@ -1,7 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> texts=new ArrayList<>();
-        vvod(texts);
+        ArrayList<String> texts=  vvod("text.txt");
         obratnyiPorjdok(texts);
         sredneeKolvo(texts);
         kolvoSlovStroke();
@@ -9,6 +15,20 @@ public class Main {
     }
     public static ArrayList<String> vvod(ArrayList<String> texts){
         String name = "text.txt";
+        try{
+            Scanner sc = new Scanner(new File(name));
+            while (sc.hasNext()) {
+                texts.add(sc.nextLine().replace(",", "").replace(".", "").replace("—", "").replace(":", ""));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR :(");
+        }
+        return texts;
+    }
+
+    public static ArrayList<String> vvod(String name){
+        ArrayList<String> texts = new ArrayList<>();
         try{
             Scanner sc = new Scanner(new File(name));
             while (sc.hasNext()) {
@@ -37,18 +57,15 @@ public class Main {
     }
     static String kolvoSlovStroke(){
         String name = "text.txt";
-        try {
-            Scanner sc = new Scanner(new File(name));
-            int words = 0;
-            while (sc.hasNextLine()){
-                String[] arr = sc.nextLine().split(" ");
-                words=arr.length;
-                System.out.println("Kolichestvo slov v stroke - "+words);
-            }
+        ArrayList<String> lines =  vvod(name);
 
-        } catch (FileNotFoundException e) {
-            System.out.println(":((((");
+        int words = 0;
+        for(int i=0; i< lines.size();i++){
+                String[] arr = lines.get(i).split(" ");
+                words=arr.length;
+                System.out.println("Kolichestvo slov v "+i+" stroke - "+words);
         }
+
         return name;
     }
 
