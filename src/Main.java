@@ -31,7 +31,7 @@ public class Main {
         for (int i = 0; i < texts.size(); i++) {
             number += texts.get(i).length();
         }
-        float average=number/(texts.size()/2);
+        float average=number/(texts.size());
         System.out.println("Srednjj dlina stroki - "+average);
         return texts;
     }
